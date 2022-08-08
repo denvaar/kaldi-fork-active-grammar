@@ -9,7 +9,7 @@ WGET ?= wget
 
 # Note: OpenFst requires a relatively recent C++ compiler with C++11 support,
 # e.g. g++ >= 4.7, Apple clang >= 5.0 or LLVM clang >= 3.3.
-OPENFST_VERSION ?= 1.6.7
+OPENFST_VERSION ?= 1.8.2
 CUB_VERSION ?= 1.8.0
 # No '?=', since there exists only one version of sph2pipe.
 SPH2PIPE_VERSION = 2.5
@@ -57,9 +57,6 @@ distclean: clean
 #=== OpenFST ===================================================================
 
 
-$(error got here)
-
-
 .PHONY: openfst openfst_compiled openfst_cleaned
 
 openfst: openfst_compiled openfst-$(OPENFST_VERSION)/lib
@@ -82,7 +79,7 @@ else ifeq ($(OS),Windows_NT)
   # This new OS path is confirmed working on Windows 10 / Cygwin64.
   openfst_add_CXXFLAGS = -g -O2 -Wa,-mbig-obj
 else
-  openfst_add_CXXFLAGS = -g -O2
+  openfst_add_CXXFLAGS = -g -O2 -target x86_64-apple-darwin
 endif
 
 openfst-$(OPENFST_VERSION)/Makefile: openfst-$(OPENFST_VERSION)
