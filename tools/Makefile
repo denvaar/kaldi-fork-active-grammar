@@ -56,6 +56,10 @@ distclean: clean
 
 #=== OpenFST ===================================================================
 
+
+$(error got here)
+
+
 .PHONY: openfst openfst_compiled openfst_cleaned
 
 openfst: openfst_compiled openfst-$(OPENFST_VERSION)/lib
