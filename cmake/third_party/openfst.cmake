@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.8.2)
 project(openfst-download NONE)
 
+message(FATAL_ERROR "testing")
+
 include(ExternalProject)
 ExternalProject_Add(openfst
     GIT_REPOSITORY https://github.com/kkm000/openfst
