@@ -92,13 +92,7 @@ openfst-$(OPENFST_VERSION): openfst-$(OPENFST_VERSION).tar.gz
 	tar xozf openfst-$(OPENFST_VERSION).tar.gz
 
 openfst-$(OPENFST_VERSION).tar.gz:
-	if [ -d "$(DOWNLOAD_DIR)" ]; then \
-	  cp -p "$(DOWNLOAD_DIR)/openfst-$(OPENFST_VERSION).tar.gz" .; \
-	else \
-	  $(WGET) -nv -T 10 -t 1 http://www.openfst.org/twiki/pub/FST/FstDownload/openfst-$(OPENFST_VERSION).tar.gz || \
-	  $(WGET) -nv -T 10 -t 3 -c https://www.openslr.org/resources/2/openfst-$(OPENFST_VERSION).tar.gz || \
-	  $(WGET) -nv -T 10 -t 3 -c http://www.openslr.org/resources/2/openfst-$(OPENFST_VERSION).tar.gz; \
-	fi
+	cp -p /Users/denver.smith/codes/openfst/openfst-1.8.2-custom.tar.gz .
 
 openfst_cleaned:
 	-for d in openfst/ openfst-*/; do \
