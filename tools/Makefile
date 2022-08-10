@@ -92,7 +92,7 @@ openfst-$(OPENFST_VERSION): openfst-$(OPENFST_VERSION).tar.gz
 	tar xozf openfst-$(OPENFST_VERSION).tar.gz
 
 openfst-$(OPENFST_VERSION).tar.gz:
-	cp -p /Users/denver.smith/codes/openfst/openfst-1.8.2-custom.tar.gz .
+	cp -p /Users/denver.smith/codes/openfst/openfst-1.8.2.tar.gz .
 
 openfst_cleaned:
 	-for d in openfst/ openfst-*/; do \
