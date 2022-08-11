@@ -15,7 +15,7 @@ CUB_VERSION ?= 1.8.0
 SPH2PIPE_VERSION = 2.5
 # SCTK official repo does not have version tags. Here's the mapping:
 # 2.4.9 = 659bc36; 2.4.10 = d914e1b; 2.4.11 = 20159b5.
-SCTK_GITHASH = 20159b5
+SCTK_GITHASH = v2.4.12
 
 # Default features configured for OpenFST; can be overridden in the make command line.
 OPENFST_CONFIGURE ?= --enable-static --enable-shared --enable-far \
@@ -45,8 +45,8 @@ clean: openfst_cleaned sctk_cleaned
 distclean: clean
 	rm -rf openfst openfst-$(OPENFST_VERSION) \
 	       openfst-$(OPENFST_VERSION).tar.gz
-	rm -rf sctk sctk-$(SCTK_GITHASH) \
-	       sctk-$(SCTK_GITHASH).tar.gz
+	rm -rf sctk SCTK-$(SCTK_GITHASH) \
+	       SCTK-$(SCTK_GITHASH).tar.gz
 	rm -rf sph2pipe sph2pipe-$(SPH2PIPE_VERSION) \
 	       sph2pipe-$(SPH2PIPE_VERSION).tar.gz
 	rm -rf libsndfile-1.0.25 libsndfile-1.0.25.tar.gz \
@@ -122,7 +122,7 @@ sctk/.compiled: sctk
 sctk: sctk-$(SCTK_GITHASH).tar.gz
 	tar zxvf sctk-$(SCTK_GITHASH).tar.gz
 	rm -rf sctk-$(SCTK_GITHASH) sctk
-	mv SCTK-$(SCTK_GITHASH)* sctk-$(SCTK_GITHASH)
+	mv sctk-$(SCTK_GITHASH)* sctk-$(SCTK_GITHASH)
 	ln -s sctk-$(SCTK_GITHASH) sctk
 	touch sctk-$(SCTK_GITHASH).tar.gz
 
@@ -131,7 +131,7 @@ sctk-$(SCTK_GITHASH).tar.gz:
 	  cp -p '$(DOWNLOAD_DIR)/sctk-$(SCTK_GITHASH).tar.gz' .; \
 	else \
 	  $(WGET) -nv -T 10 -t 3 -O sctk-$(SCTK_GITHASH).tar.gz \
-	    https://github.com/usnistgov/SCTK/archive/$(SCTK_GITHASH).tar.gz; \
+	    https://github.com/usnistgov/SCTK/archive/refs/tags/$(SCTK_GITHASH).tar.gz; \
 	fi
 
 sctk_cleaned:
