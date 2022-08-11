@@ -79,7 +79,7 @@ else ifeq ($(OS),Windows_NT)
   # This new OS path is confirmed working on Windows 10 / Cygwin64.
   openfst_add_CXXFLAGS = -g -O2 -Wa,-mbig-obj
 else
-  openfst_add_CXXFLAGS = -g -O2 -target x86_64-apple-darwin -mmacosx-version-min=12.0
+  openfst_add_CXXFLAGS = -g -O2 -target=arm64-apple-darwin -mmacosx-version-min=12.0
 endif
 
 openfst-$(OPENFST_VERSION)/Makefile: openfst-$(OPENFST_VERSION)
