@@ -45,8 +45,8 @@ clean: openfst_cleaned sctk_cleaned
 distclean: clean
 	rm -rf openfst openfst-$(OPENFST_VERSION) \
 	       openfst-$(OPENFST_VERSION).tar.gz
-	rm -rf sctk SCTK-$(SCTK_GITHASH) \
-	       SCTK-$(SCTK_GITHASH).tar.gz
+	rm -rf sctk sctk-$(SCTK_GITHASH) \
+	       sctk-$(SCTK_GITHASH).tar.gz
 	rm -rf sph2pipe sph2pipe-$(SPH2PIPE_VERSION) \
 	       sph2pipe-$(SPH2PIPE_VERSION).tar.gz
 	rm -rf libsndfile-1.0.25 libsndfile-1.0.25.tar.gz \
@@ -105,26 +105,12 @@ SCTK_CXFLAGS = -w
 SCTK_MKENV = CFLAGS="$(CFLAGS) $(SCTK_CXFLAGS)" \
              CXXFLAGS="$(CXXFLAGS) -std=c++11 $(SCTK_CXFLAGS)" \
 
-# Keep the existing target 'sclite' to avoid breaking the users who might have
-# scripted it in.
-.PHONY: sclite sctk_cleaned sctk_made
-
-sclite sctk_made: sctk/.compiled
-
-sctk/.compiled: sctk
-	rm -f sctk/.compiled
+sctk: sctk-$(SCTK_GITHASH).tar.gz
+	mkdir ./sctk
+	tar zxvf sctk-$(SCTK_GITHASH).tar.gz -C ./sctk --strip-components=1
 	$(SCTK_MKENV) $(MAKE) -C sctk config
 	$(SCTK_MKENV) $(MAKE) -C sctk all doc
 	$(MAKE) -C sctk install
-	touch sctk/.compiled
-
-# The GitHub archive unpacks into SCTK-{40-character-long-hash}/
-sctk: sctk-$(SCTK_GITHASH).tar.gz
-	tar zxvf sctk-$(SCTK_GITHASH).tar.gz
-	rm -rf sctk-$(SCTK_GITHASH) sctk
-	mv sctk-$(SCTK_GITHASH)* sctk-$(SCTK_GITHASH)
-	ln -s sctk-$(SCTK_GITHASH) sctk
-	touch sctk-$(SCTK_GITHASH).tar.gz
 
 sctk-$(SCTK_GITHASH).tar.gz:
 	if [ -d '$(DOWNLOAD_DIR)' ]; then \
@@ -133,12 +119,6 @@ sctk-$(SCTK_GITHASH).tar.gz:
 	  $(WGET) -nv -T 10 -t 3 -O sctk-$(SCTK_GITHASH).tar.gz \
 	    https://github.com/usnistgov/SCTK/archive/refs/tags/$(SCTK_GITHASH).tar.gz; \
 	fi
-
-sctk_cleaned:
-	-for d in sctk/ sctk-*/; do \
-	   [ ! -f $$d/.compiled ] || $(MAKE) -C $$d clean; \
-	   rm -f $$d/.compiled; \
-	done
 
 #== sph2pipe ===================================================================
 
